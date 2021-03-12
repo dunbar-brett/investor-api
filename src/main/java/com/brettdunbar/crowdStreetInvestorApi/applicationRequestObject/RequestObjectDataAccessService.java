@@ -1,6 +1,6 @@
-package applicationRequestObject;
+package com.brettdunbar.crowdStreetInvestorApi.applicationRequestObject;
 
-import dataStore.MockRequestObjectStore;
+import com.brettdunbar.crowdStreetInvestorApi.dataStore.MockRequestObjectStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

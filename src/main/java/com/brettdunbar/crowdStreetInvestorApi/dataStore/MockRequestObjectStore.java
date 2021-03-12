@@ -1,6 +1,6 @@
-package dataStore;
+package com.brettdunbar.crowdStreetInvestorApi.dataStore;
 
-import applicationRequestObject.RequestObject;
+import com.brettdunbar.crowdStreetInvestorApi.applicationRequestObject.RequestObject;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
