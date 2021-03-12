@@ -2,6 +2,7 @@ package applicationRequestObject;
 import java.util.Date;
 import java.util.UUID;
 
+// This would be renamed to something more descriptive
 public class RequestObject {
     private UUID requestId;
     private String body;

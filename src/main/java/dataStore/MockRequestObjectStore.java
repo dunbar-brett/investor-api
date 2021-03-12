@@ -42,4 +42,8 @@ public class MockRequestObjectStore {
                     new Date()
             ));
     }
+
+    public List<RequestObject> getRequestObjectList() {
+        return REQUEST_OBJECT_LIST;
+    }
 }
