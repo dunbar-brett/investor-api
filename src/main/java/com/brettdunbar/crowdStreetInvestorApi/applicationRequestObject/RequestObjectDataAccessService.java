@@ -20,7 +20,7 @@ public class RequestObjectDataAccessService {
     public RequestObject getRequestObjectById(int id) {
         List<RequestObject> requestObjectList = getRequestObjects();
         RequestObject response = requestObjectList.stream()
-                .filter(requestObject -> id == requestObject.getRequestId())
+                .filter(requestObject -> id == requestObject.requestId)
                 .findAny()
                 .orElse(null);
         return response;

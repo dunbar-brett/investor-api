@@ -1,7 +1,8 @@
 package com.brettdunbar.crowdStreetInvestorApi.applicationRequestObject;
 
-import com.brettdunbar.crowdStreetInvestorApi.dataObjects.ResponseStatusUpdate;
+import com.brettdunbar.crowdStreetInvestorApi.dataObjects.JsonBodyRequest;
 import com.brettdunbar.crowdStreetInvestorApi.dataObjects.RequestStatusUpdate;
+import com.brettdunbar.crowdStreetInvestorApi.dataObjects.ResponseStatusUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class RequestObjectController {
     // POST request (1)
     // body template -- "{\"body\":\"random testing string for post\"}"
     @PostMapping("/request")
-    public String postRequest(@RequestBody String body) {
+    public String postRequest(@RequestBody JsonBodyRequest requestBody) {
 
         Random rand = new Random();
         int callbackId = rand.nextInt(1000);
@@ -34,12 +35,12 @@ public class RequestObjectController {
         // create an entry
         mostRecentId++;
         RequestObject requestObject = new RequestObject(
-            mostRecentId,
-            body,
-            "PROCESSING",
-            "",
-            new Date(),
-            new Date()
+                mostRecentId,
+                requestBody.body, // this sounds silly
+                "PROCESSING",
+                "",
+                new Date(),
+                new Date()
         );
 
         RequestObject response = requestObjectService.addRequestObject(requestObject);
@@ -52,8 +53,9 @@ public class RequestObjectController {
             return "ERROR";
         }
 
-        return ("/callback/" + response.getRequestId());
+        return ("/callback/" + response.requestId);
     }
+
 
     // POST callback (2) -- Updates status with a callback id and a string
     //
@@ -85,6 +87,7 @@ public class RequestObjectController {
 
     // GET status (4) -- gets the status of a request by id
     @GetMapping("/status/{id}")
+    @ResponseBody
     public ResponseStatusUpdate getRequestStatus(@PathVariable int id) {
 
         // get response update with id
@@ -96,17 +99,50 @@ public class RequestObjectController {
         }
 
         ResponseStatusUpdate response = new ResponseStatusUpdate(
-            requestObject.getStatus(),
-            requestObject.getDetail(),
-            requestObject.getBody()
+            requestObject.status,
+            requestObject.detail,
+            requestObject.body
         );
         return response;
     }
 
 
+    // Extra Endpoints
+    // same exact request as (1) but with a raw string
+    @PostMapping("/request/rawString")
+    @ResponseBody
+    public String postRequestRawString(@RequestBody String body) {
+
+        Random rand = new Random();
+        int callbackId = rand.nextInt(1000);
+
+        // create an entry
+        mostRecentId++;
+        RequestObject requestObject = new RequestObject(
+                mostRecentId,
+                body,
+                "PROCESSING",
+                "",
+                new Date(),
+                new Date()
+        );
+
+        RequestObject response = requestObjectService.addRequestObject(requestObject);
+
+        if (response == null) {
+            // since this responds with a string going to send error
+            // back if there is an issue adding to the response object
+            // I would also suggest adding some error logs if i had a
+            // some sort of logger.
+            return "ERROR";
+        }
+
+        return ("/callback/" + response.requestId);
+    }
 
     // GET all RequestObjects
     @GetMapping
+    @ResponseBody
     public List<RequestObject> getRequestObjectList() {
         return requestObjectService.getRequestObjects();
     }
