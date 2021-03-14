@@ -1,27 +1,37 @@
 package com.brettdunbar.crowdStreetInvestorApi.dataObjects;
 
 public class ResponseStatusUpdate {
-    private String Status;
-    private String Detail;
+    private String status;
+    private String detail;
+    private String body;
 
-    public ResponseStatusUpdate(String status, String detail) {
-        Status = status;
-        Detail = detail;
+    public ResponseStatusUpdate(String status, String detail, String body) {
+        this.status = status;
+        this.detail = detail;
+        this.body = body;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getDetail() {
-        return Detail;
+        return detail;
     }
 
     public void setDetail(String detail) {
-        Detail = detail;
+        this.detail = detail;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 }

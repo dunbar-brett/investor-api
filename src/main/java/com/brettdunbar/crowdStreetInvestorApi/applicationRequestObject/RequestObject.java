@@ -1,5 +1,6 @@
 package com.brettdunbar.crowdStreetInvestorApi.applicationRequestObject;
 import java.util.Date;
+import java.util.Objects;
 
 // This would be renamed to something more descriptive
 public class RequestObject {
@@ -72,6 +73,17 @@ public class RequestObject {
         this.status = status;
     }
 
-    // TODO: Maybe implement an equals method
+    // not entirely sure if this is right.
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RequestObject that = (RequestObject) o;
+        return requestId == that.requestId && body.equals(that.body) && status.equals(that.status) && detail.equals(that.detail) && createdTimeStamp.equals(that.createdTimeStamp) && lastUpdatedTimeStamp.equals(that.lastUpdatedTimeStamp);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(requestId, body, status, detail, createdTimeStamp, lastUpdatedTimeStamp);
+    }
 }

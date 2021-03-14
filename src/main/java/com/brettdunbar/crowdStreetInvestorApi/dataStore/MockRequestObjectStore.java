@@ -10,6 +10,14 @@ public class MockRequestObjectStore {
 
     private static final List<RequestObject> REQUEST_OBJECT_LIST = new ArrayList<>();
 
+    public List<RequestObject> getRequestObjectList() {
+        return REQUEST_OBJECT_LIST;
+    }
+
+    public void addRequestObject(RequestObject requestObject) {
+        REQUEST_OBJECT_LIST.add(requestObject);
+    }
+
     static {
         REQUEST_OBJECT_LIST
             .add(new RequestObject(
@@ -43,7 +51,4 @@ public class MockRequestObjectStore {
             ));
     }
 
-    public List<RequestObject> getRequestObjectList() {
-        return REQUEST_OBJECT_LIST;
-    }
 }

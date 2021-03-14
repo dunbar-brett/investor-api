@@ -17,7 +17,21 @@ public class RequestObjectDataAccessService {
         this.mockRequestObjectStore = mockRequestObjectStore;
     }
 
-    List<RequestObject> getRequestObjects() {
+    public RequestObject getRequestObjectById(int id) {
+        List<RequestObject> requestObjectList = getRequestObjects();
+        RequestObject response = requestObjectList.stream()
+                .filter(requestObject -> id == requestObject.getRequestId())
+                .findAny()
+                .orElse(null);
+        return response;
+    }
+
+    public RequestObject addRequestObject(RequestObject requestObject) {
+        mockRequestObjectStore.addRequestObject(requestObject);
+        return requestObject;
+    }
+
+    public List<RequestObject> getRequestObjects() {
         return mockRequestObjectStore.getRequestObjectList();
     }
 }
