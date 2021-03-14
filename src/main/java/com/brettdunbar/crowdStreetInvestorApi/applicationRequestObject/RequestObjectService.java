@@ -29,6 +29,19 @@ public class RequestObjectService {
         return requestObject;
     }
 
+
+    public void updateStatusById(int id, String status) {
+        requestObjectDataAccessService.updateRequestObjectStatus(id, status);
+    }
+
+    public void updateStatusAndDetailById(int id, String status, String detail) {
+        requestObjectDataAccessService.updateRequestObjectStatusAndDetail(id, status, detail);
+    }
+
+    public boolean doesRequestIdExist(int id) {
+        return getRequestObjectById(id) != null;
+    }
+
     public RequestObject getRequestObjectById(int id) {
         return requestObjectDataAccessService.getRequestObjectById(id);
     }

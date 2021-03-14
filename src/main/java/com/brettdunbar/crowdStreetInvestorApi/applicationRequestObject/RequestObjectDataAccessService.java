@@ -20,10 +20,29 @@ public class RequestObjectDataAccessService {
     public RequestObject getRequestObjectById(int id) {
         List<RequestObject> requestObjectList = getRequestObjects();
         RequestObject response = requestObjectList.stream()
-                .filter(requestObject -> id == requestObject.requestId)
+                .filter(requestObject -> id == requestObject.getRequestId())
                 .findAny()
                 .orElse(null);
         return response;
+    }
+
+    // this should realistically return a boolean or something in case there was an issue
+    public void updateRequestObjectStatus(int id, String status) {
+        // this would realistically involve more DB work with SQL
+        RequestObject requestObject = getRequestObjectById(id);
+        requestObject.setStatus(status);
+
+        // more error handling around this with loggers
+    }
+
+    // this should realistically return a boolean or something in case there was an issue
+    public void updateRequestObjectStatusAndDetail(int id, String status, String detail) {
+        // this would realistically be a single SQL script to update both
+        RequestObject requestObject = getRequestObjectById(id);
+        requestObject.setStatus(status);
+        requestObject.setDetail(detail);
+
+        // more error handling around this with loggers
     }
 
     public RequestObject addRequestObject(RequestObject requestObject) {
