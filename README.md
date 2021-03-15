@@ -8,6 +8,6 @@ The `api` should be accessible through `[http://localhost:8080/api/](http://loca
 
 
 ## Postman 
-A [postman](https://www.postman.com/downloads/) collection is in the project directory to quickly test the required endpoints and also provides additional testing endpoints
+A [postman](https://www.postman.com/downloads/) collection is in the directory `crowdstreet-investor-api > postmanCollection` to quickly test the required endpoints and also provides additional testing endpoints
 
 Open the collection in Postman and you can hit each test endpoint with a body format for POSTs/PUTs set.
