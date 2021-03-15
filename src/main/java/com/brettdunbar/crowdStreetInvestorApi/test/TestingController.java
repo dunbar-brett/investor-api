@@ -31,9 +31,29 @@ public class TestingController {
 
     // implement a test that takes a var for delay(in seconds) for processing status
     // max is 5 minutes
-//    @Scheduled(fixedDelay = )
     @GetMapping("/hello/{timeOutSeconds}")
     public Callable<String> greeting(@PathVariable int timeOutSeconds) {
+        if (timeOutSeconds > 300) {
+            return null;
+        }
+        int milliseconds = timeOutSeconds * 1000;
+        return new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                Thread.sleep(milliseconds); //this will cause a timeout
+                System.out.println("hello in :" + timeOutSeconds + " second(s)");
+                return "foobar";
+            }
+        };
+    }
+
+    /*
+        the below code doesn't really do anything, I was going to try to simulate
+        the third party service and delay a call by a given time, but spending a
+        little too much time and not sure if it will provide much testing value
+     */
+    @GetMapping("/delayRequestCall/{timeOutSeconds}")
+    public Callable<String> testDelayRequest(@PathVariable int timeOutSeconds) {
         if (timeOutSeconds > 300) {
             return null;
         }
