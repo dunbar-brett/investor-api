@@ -9,22 +9,22 @@ public class RequestObject {
     private String status; // TODO: status should likely be an enum
     private String detail;
     private Date createdTimeStamp;
-    private Date lastUpdatedTimeStamp;
+    private Date updatedTimeStamp;
 
     public RequestObject(int requestId,
                          String body,
                          String status,
                          String detail,
                          Date createdTimeStamp,
-                         Date lastUpdatedTimeStamp) {
+                         Date updatedTimeStamp) {
         this.requestId = requestId;
         this.body = body;
         this.status = status;
         this.detail = detail;
         this.createdTimeStamp = createdTimeStamp;
-        this.lastUpdatedTimeStamp = lastUpdatedTimeStamp;
+        this.updatedTimeStamp = updatedTimeStamp;
     }
-    
+
     public int getRequestId() {
         return requestId;
     }
@@ -65,12 +65,12 @@ public class RequestObject {
         this.createdTimeStamp = createdTimeStamp;
     }
 
-    public Date getLastUpdatedTimeStamp() {
-        return lastUpdatedTimeStamp;
+    public Date getUpdatedTimeStamp() {
+        return updatedTimeStamp;
     }
 
-    public void setLastUpdatedTimeStamp(Date lastUpdatedTimeStamp) {
-        this.lastUpdatedTimeStamp = lastUpdatedTimeStamp;
+    public void setUpdatedTimeStamp(Date updatedTimeStamp) {
+        this.updatedTimeStamp = updatedTimeStamp;
     }
 
 
@@ -81,11 +81,11 @@ public class RequestObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RequestObject that = (RequestObject) o;
-        return requestId == that.requestId && body.equals(that.body) && status.equals(that.status) && detail.equals(that.detail) && createdTimeStamp.equals(that.createdTimeStamp) && lastUpdatedTimeStamp.equals(that.lastUpdatedTimeStamp);
+        return requestId == that.requestId && body.equals(that.body) && status.equals(that.status) && detail.equals(that.detail) && createdTimeStamp.equals(that.createdTimeStamp) && updatedTimeStamp.equals(that.updatedTimeStamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(requestId, body, status, detail, createdTimeStamp, lastUpdatedTimeStamp);
+        return Objects.hash(requestId, body, status, detail, createdTimeStamp, updatedTimeStamp);
     }
 }

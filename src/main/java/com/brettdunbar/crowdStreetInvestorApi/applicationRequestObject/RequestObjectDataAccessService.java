@@ -4,12 +4,13 @@ import com.brettdunbar.crowdStreetInvestorApi.dataStore.MockRequestObjectStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public class RequestObjectDataAccessService {
 
-    // can use dependecy inject to use a DB instead of a mock store
+    // can use dependency injection to use a DB instead of a mock store
     private final MockRequestObjectStore mockRequestObjectStore;
 
     @Autowired
@@ -31,6 +32,7 @@ public class RequestObjectDataAccessService {
         // this would realistically involve more DB work with SQL
         RequestObject requestObject = getRequestObjectById(id);
         requestObject.setStatus(status);
+        requestObject.setUpdatedTimeStamp(new Date());
 
         // more error handling around this with loggers
     }
@@ -41,6 +43,8 @@ public class RequestObjectDataAccessService {
         RequestObject requestObject = getRequestObjectById(id);
         requestObject.setStatus(status);
         requestObject.setDetail(detail);
+        requestObject.setUpdatedTimeStamp(new Date());
+
 
         // more error handling around this with loggers
     }

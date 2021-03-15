@@ -3,6 +3,9 @@ package com.brettdunbar.crowdStreetInvestorApi.applicationRequestObject;
 import com.brettdunbar.crowdStreetInvestorApi.dataObjects.JsonBodyRequest;
 import com.brettdunbar.crowdStreetInvestorApi.dataObjects.RequestStatusUpdate;
 import com.brettdunbar.crowdStreetInvestorApi.dataObjects.ResponseStatusUpdate;
+import com.brettdunbar.crowdStreetInvestorApi.dataObjects.ThirdPartyServiceObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -49,12 +52,16 @@ public class RequestObjectController {
                 "/callback/" + mostRecentId,
                     requestBody.body
             );
-            buildAndSendThirdPartyServiceRequest();
+            buildAndSendThirdPartyServiceRequest(serviceObject);
         } catch (ExecutionException e) {
             e.printStackTrace();
             // log response null error/warning
             return "ERROR";
         } catch (InterruptedException e) {
+            e.printStackTrace();
+            // log response null error/warning
+            return "ERROR";
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
             // log response null error/warning
             return "ERROR";
@@ -133,27 +140,23 @@ public class RequestObjectController {
         return response;
     }
 
-    class ThirdPartyServiceObject {
-        public String callbackUrl;
-        public String body;
+    private void buildAndSendThirdPartyServiceRequest(ThirdPartyServiceObject serviceObject)
+            throws ExecutionException, InterruptedException, JsonProcessingException {
+        // all of this does nothing really, just for request display purposes
 
-        public ThirdPartyServiceObject(String callbackUrl, String body) {
-            this.callbackUrl = callbackUrl;
-            this.body = body;
-        }
-    }
-
-    private void buildAndSendThirdPartyServiceRequest() throws ExecutionException, InterruptedException {
         // examples from https://openjdk.java.net/groups/net/httpclient/intro.html
 
         // use the client to send the request
         // create a client
         var client = HttpClient.newHttpClient();
-
+        var objectMapper = new ObjectMapper();
+        var requestBody = objectMapper
+                .writeValueAsString(serviceObject);
         // create a request
         var request = HttpRequest.newBuilder(
                 URI.create(exampleServiceUrl))
                 .header("accept", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
         var responseFuture = client
                 .sendAsync(request, HttpResponse.BodyHandlers.ofString());
