@@ -1,15 +1,13 @@
 
-# crowdstreet-investor-api
+# investor-api
 
-Java with Spring Boot API for CrowdStreet Interview
-
-  
+Java with Spring Boot API 
 
 ## Starting the API
 
 Open the project in an IDE
 
-Run `CrowdStreetInvestorApiApplication` in `com.brettdunbar.crowdStreetInvestorApiApplication` package.
+Run `InvestorApiApplication` in `com.brettdunbar.investorApiApplication` package.
 
 The `api` should be accessible through `[http://localhost:8080/api/](http://localhost:8080/api/)`
 
@@ -18,7 +16,7 @@ The `api` should be accessible through `[http://localhost:8080/api/](http://loca
 
 ## Postman
 
-A [postman](https://www.postman.com/downloads/) collection is in the directory `crowdstreet-investor-api > postmanCollection` to quickly test the required endpoints and also provides additional testing endpoints
+A [postman](https://www.postman.com/downloads/) collection is in the directory `investor-api > postmanCollection` to quickly test the required endpoints and also provides additional testing endpoints
 
   
 
